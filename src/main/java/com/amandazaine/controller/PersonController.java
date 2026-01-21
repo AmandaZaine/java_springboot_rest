@@ -2,7 +2,6 @@ package com.amandazaine.controller;
 
 import com.amandazaine.dto.v1.PersonDTO;
 import com.amandazaine.dto.v2.PersonDTOv2;
-import com.amandazaine.modelOrEntity.Person;
 import com.amandazaine.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,7 +34,11 @@ public class PersonController {
     )
     public PersonDTO findById(@PathVariable Long id) {
         logger.info("findById(" + id + ")");
-        return personService.findById(id);
+        PersonDTO person = personService.findById(id);
+        person.setDateOfBirth(new Date());
+        person.setPhoneNumber("");
+        person.setLastName(null);
+        return person;
     }
 
     @PostMapping(

@@ -2,21 +2,21 @@ package com.amandazaine.dto.v1;
 
 import com.amandazaine.serializer.GenderSerializer;
 import com.fasterxml.jackson.annotation.*;
-import tools.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-//@JsonPropertyOrder({"id", "gender", "primeiro_nome", "address", "lastName"})
-@JsonFilter("PersonFilter")
+@JsonPropertyOrder({"id", "gender", "primeiro_nome", "lastName"})
+//@JsonFilter("PersonFilter")
 public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private long id;
 
-    //@JsonProperty("primeiro_nome")
+    @JsonProperty("primeiro_nome")
     private String firstName;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -25,9 +25,9 @@ public class PersonDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/YYYY")
     private Date  dateOfBirth;
 
+    @JsonIgnore
     private String address;
 
-    //@JsonIgnore
     @JsonSerialize(using = GenderSerializer.class)
     private String gender;
 

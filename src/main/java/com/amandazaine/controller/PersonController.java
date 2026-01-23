@@ -22,7 +22,10 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = {
+            MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_YAML_VALUE })
     public List<PersonDTO> findAll() {
         logger.debug("findAll()");
         return personService.findAll();
@@ -30,20 +33,29 @@ public class PersonController {
 
     @GetMapping(
             value = "/{id}",
-            produces = MediaType.APPLICATION_JSON_VALUE
+            produces = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_YAML_VALUE }
     )
     public PersonDTO findById(@PathVariable Long id) {
         logger.info("findById(" + id + ")");
         PersonDTO person = personService.findById(id);
         person.setDateOfBirth(new Date());
         person.setPhoneNumber("");
-        person.setLastName(null);
         return person;
     }
 
     @PostMapping(
-            consumes =  MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            consumes =  {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_YAML_VALUE
+            },
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_YAML_VALUE
+            }
     )
     public PersonDTO save(@RequestBody PersonDTO personDTO) {
         logger.warn("save(" + personDTO + ")");
@@ -52,7 +64,9 @@ public class PersonController {
 
     @PutMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            produces = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_YAML_VALUE }
     )
     public PersonDTO update(@RequestBody PersonDTO personDTO) {
         logger.warn("update(" + personDTO + ")");
@@ -71,7 +85,9 @@ public class PersonController {
     @PostMapping(
             value = "/v2",
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            produces = { MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_YAML_VALUE }
     )
     public PersonDTOv2 save(@RequestBody PersonDTOv2 personDTOv2) {
         return personService.saveV2(personDTOv2);

@@ -14,7 +14,10 @@ public class ObjectMapperConfig {
         ObjectMapper objectMapper = new ObjectMapper();
 
         SimpleFilterProvider filters = new SimpleFilterProvider();
-        filters.addFilter("PersonFilter", SimpleBeanPropertyFilter.serializeAllExcept("gender", "dateOfBirth"));
+        filters.addFilter(
+                "PersonFilter",
+                SimpleBeanPropertyFilter.serializeAllExcept("gender", "dateOfBirth") //Infos que não quero exibir
+        );
 
         objectMapper.setFilterProvider(filters);
 

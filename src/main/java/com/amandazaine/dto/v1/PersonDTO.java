@@ -3,35 +3,36 @@ package com.amandazaine.dto.v1;
 import com.amandazaine.serializer.GenderSerializer;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "gender", "primeiro_nome", "lastName"})
+//@JsonPropertyOrder({"id", "gender", "primeiro_nome", "lastName"})
 //@JsonFilter("PersonFilter")
-public class PersonDTO implements Serializable {
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private long id;
 
-    @JsonProperty("primeiro_nome")
+    //@JsonProperty("primeiro_nome")
     private String firstName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    //@JsonInclude(JsonInclude.Include.NON_NULL)
     private String lastName;
 
     @JsonFormat(pattern = "dd/MM/YYYY")
     private Date  dateOfBirth;
 
-    @JsonIgnore
+    //@JsonIgnore
     private String address;
 
     @JsonSerialize(using = GenderSerializer.class)
     private String gender;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    //@JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String phoneNumber;
 
     public PersonDTO() {
